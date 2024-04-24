@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-200">
+    <div class="flex flex-col">
+        <%- include('./partials/navbar.ejs') %>
+        <section class="container mx-auto px-10 my-20">
+            <div class="mx-auto">
+                <% if (fotos.length > 0) { %>
+                    <div class="sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                        <% fotos.forEach(foto => { %>
+                            <div class="relative my-3">
+                                <a href="/post/<%= foto._id %>" class="block relative group">
+                                    <img src="/uploads/<%= foto.lokasifile %>" alt="<%= foto.judulfoto %>" class="object-cover w-full h-full transition duration-300 ease-in-out transform group-hover:opacity-80 hover:scale-105" />
+                                    <div class="absolute inset-0 p-4 bg-black bg-opacity-70 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white flex flex-col justify-end">
+                                        <p class="mb-2"><%= foto.userid.username %></p>
+                                        <p><%= foto.judulfoto %></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }); %>
+                    </div>
+                <% } else { %>
+                    <p class="text-center text-xl text-gray-600">Judul foto yang Anda cari tidak ada.</p>
+                <% } %>
+            </div>
+        </section>
+    </div>
+    
+</body>
+</html>

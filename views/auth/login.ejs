@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+    <div class="flex justify-center items-center min-h-screen mx-10">
+        <div class="container mx-auto bg-white bg-opacity-90 backdrop-blur-md rounded-md p-8 max-w-lg grid md:grid-cols-2 gap-8 min-h-full">
+            <div class="items-center justify-center md:flex md:items-center md:justify-center">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 text-center">Sparkle</h1>
+            </div>
+            <div class="flex flex-col">
+                <h2 class="text-2xl font-semibold mb-6 md:text-center">Login</h2>
+                <form action="/login" method="post" class="flex flex-col items-center space-y-4" style="z-index: 1;">
+                    <div class="mb-4 w-full">
+                        <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
+                        <input type="email" name="email" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter email">
+                    </div>
+                    <div class="mb-4 w-full">
+                        <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+                        <input type="password" name="password" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter Password">
+                    </div>
+                    
+                    <p class="text-gray-700">Belum punya akun? <a href="/register" class="text-blue-500 hover:text-green-500 transition-colors duration-300">Signup</a></p>
+                    <button type="submit" class="bg-black text-white rounded-md px-4 py-2 hover:bg-green-500 focus:outline-none focus:bg-green-500 transition-colors duration-300">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

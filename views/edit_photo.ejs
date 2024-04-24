@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Photo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <%- include('./partials/navbar.ejs') %>
+    <div class="container mx-auto py-24">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">Edit Photo</h2>
+            
+            <form action="/edit_post/<%= foto._id %>?_method=PUT" method="post" enctype="multipart/form-data" class="space-y-4">
+              
+                <div>
+                    <label for="judulfoto" class="block text-sm font-medium text-gray-600 mb-2">Judul Foto</label>
+                    <input type="text" name="judulfoto" id="judulfoto" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500" placeholder="Masukkan judul foto" required value="<%= foto.judulfoto %>">
+                </div>
+            
+        
+                <div>
+                    <label for="deskripsifoto" class="block text-sm font-medium text-gray-600 mb-2">Deskripsi Foto</label>
+                    <textarea name="deskripsifoto" id="deskripsifoto" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500" placeholder="Masukkan deskripsi foto" rows="4" required><%= foto.deskripsifoto %></textarea>
+                </div>
+            
+            
+                <div>
+                    <label for="lokasifile" class="block text-sm font-medium text-gray-600 mb-2">Upload Foto</label>
+                    <input type="file" name="lokasifile" id="lokasifile" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500" required>
+                    <% if (foto.lokasifile) { %>
+                        <p class="text-sm text-gray-500">Foto saat ini: </p>
+                        <img src="/uploads/<%= foto.lokasifile %>" alt="Foto saat ini" class="mt-2 w-full">
+                    <% } else { %>
+                        <p class="text-sm text-gray-500">Belum ada file terunggah.</p>
+                    <% } %>
+                </div>
+            
+               
+                <div class="flex justify-between">
+                    <a href="/post/<%= foto._id %>" class="bg-black text-white rounded-md px-5 py-2 hover:bg-red-500 transition duration-300 focus:outline-none">Kembali</a>
+                    <button type="submit" class="bg-black text-white rounded-md px-5 py-2 hover:bg-green-600 transition duration-300 focus:outline-none">Simpan</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+    
+</body>
+</body>
+</html>

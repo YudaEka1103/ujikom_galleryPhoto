@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-white">
+    <div class="flex flex-col min-h-screen">
+        <%- include('./partials/navbar.ejs') %>
+        <section class="relative flex-1 mt-16">
+            <div class="bg-cover relative" style="background-image: url('/images/wallpaper.jpg'); min-height: 450px; background-size: cover;">
+                <div class="absolute inset-0 py-8 px-10 flex flex-col items-center justify-center text-center">
+                    <h2 class="text-3xl font-bold mb-4 text-white">Welcome to <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">Sparkle</span>, <%= user.username %></h2>
+                </div>
+            </div>
+        </section>
+        <section class="container mx-auto px-10 my-10">
+            <div class="mx-auto">
+                <h1 class="text-center mb-10 text-3xl font-bold text-gray-800">Gallery</h1>
+                <div class="sm:columns-2 md:columns-3 lg:columns-4 gap-3">
+                    <% if (fotos.length > 0) { %>
+                        <% fotos.forEach(foto => { %>
+                            <div class="relative my-3">
+                                <a href="/post/<%= foto._id %>" class="block relative group">
+                                    <img src="/uploads/<%= foto.lokasifile %>" alt="<%= foto.judulfoto %>" class="w-full h-full" />
+                                    <div class="absolute inset-0 p-4 bg-black bg-opacity-70 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white flex flex-col justify-end">
+                                        <p class="mb-2"><%= foto.userid.username %></p>
+                                        <p><%= foto.judulfoto %></p>
+                                    </div>
+                                </a>
+                            </div>
+                        <% }); %>
+                    <% } %>
+                </div>
+                <% if (fotos.length === 0) { %>
+                    <div class="flex items-center justify-center my-10">
+                        <p class="text-2xl font-semibold text-gray-800">Belum ada foto apapun</p>
+                    </div>    
+                <% } %>
+            </div>
+        </section>
+        <%- include('./partials/footer.ejs') %>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <div class="flex flex-col">
+        <%- include('./partials/navbar.ejs') %>
+    <div class="container mx-auto my-20 px-10">
+        <% if (likefotos.length === 0) { %>
+            <div class="flex flex-col items-center justify-center py-32">
+                <div class="text-center mb-8">
+                    <p class="text-2xl font-semibold text-gray-800">Belum ada foto yang disukai</p>
+                </div>
+            </div>            
+            
+        <% } else { %>
+    <section class="container mx-auto px-10 my-10">
+        <div class="mx-auto">
+            <div class=" sm:columns-2 md:columns-3 lg:columns-4 gap-3">
+                <% likefotos.forEach(likefoto => { %>
+        <div class="relative my-3">
+            <a href="/post/<%= likefoto.fotoid._id %>" class="block relative group">
+                <img src="/uploads/<%= likefoto.fotoid.lokasifile %>"  alt="<%= likefoto.fotoid.judulfoto %>" class="object-cover w-full h-full transition duration-300 ease-in-out transform group-hover:opacity-80 hover:scale-105" />
+                <div class="absolute inset-0 p-4 bg-black bg-opacity-70 transition duration-300 ease-in-out opacity-0 group-hover:opacity-100 text-white flex flex-col justify-end">
+                    <p class="mb-2"><%= likefoto.fotoid.userid.username %></p>
+                    <p><%=likefoto.fotoid.judulfoto %></p>
+                </div>
+            </a>
+        </div>
+    <% }); %>
+            </div>
+            </div>
+            </section>
+        <% } %>
+    </div>
+    </div>
+    
+    </div>
+</html>
+
+

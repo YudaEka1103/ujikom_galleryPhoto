@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+    <div class="flex justify-center items-center min-h-screen mx-10">
+        <div class="container mx-auto bg-white bg-opacity-90 backdrop-blur-md rounded-md p-8 max-w-lg grid md:grid-cols-2 gap-8 min-h-full">
+            <div class="items-center justify-center md:flex md:items-center md:justify-center">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500 text-center">Sparkle</h1>
+            </div>
+            <div class="flex flex-col">
+                <h2 class="text-2xl font-semibold mb-6 md:text-center">Sign Up</h2>
+                <form action="/register" method="post" class="flex flex-col items-center space-y-4" style="z-index: 1;">
+                    <!-- Input fields -->
+                    <div class="mb-4 w-full">
+                        <label for="username" class="block text-sm font-medium text-gray-600">Username</label>
+                        <input type="text" name="username" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter username">
+                    </div>
+                    
+                    <div class="mb-4 w-full">
+                        <label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+                        <input type="password" name="password" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter Password">
+                    </div>
+                    <div class="mb-4 w-full">
+                        <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
+                        <input type="email" name="email" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter email">
+                    </div>
+                    <div class="mb-4 w-full">
+                        <label for="namalengkap" class="block text-sm font-medium text-gray-600">Nama Lengkap</label>
+                        <input type="text" name="namalengkap" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter nama lengkap">
+                    </div>
+                    <div class="mb-4 w-full">
+                        <label for="password" class="block text-sm font-medium text-gray-600">Alamat</label>
+                        <input type="text" name="alamat" class="mt-1 p-2 w-full bg-transparent border-b border-black focus:outline-none focus:border-blue-500" placeholder="Enter alamat">
+                    </div>
+                    <p class="text-gray-700">Sudah punya akun? <a href="/login" class="text-blue-500 hover:text-green-500 transition-colors duration-300">Login</a></p>
+                    <button type="submit" class="bg-black text-white rounded-md px-4 py-2 hover:bg-green-500 focus:outline-none focus:bg-green-500 transition-colors duration-300">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
