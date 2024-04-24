@@ -1,4 +1,4 @@
-// main.js
+
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
@@ -13,20 +13,30 @@ const path = require('path');
 
 const authMiddleware = async (req, res, next) => {
   try {
-    if (req.path === '/login' || req.path === '/register') {
-      return next();
-    }
-
     const token = req.cookies.token;
-    if (!token && !req.session.email) {
-      return res.render('auth/unauthorized', { message: 'Oops, kamu belum login atau sesi login kamu sudah habis' });
-    }
 
+   
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.userId = decoded.userId;
+      
+  
+      req.session.userId = decoded.userId;
     }
 
+    const user = req.session.userId;
+
+
+    const publicPaths = ['/', '/login', '/register', '/search', '/post/:id'];
+
+    if (!user && !publicPaths.includes(req.path)) {
+   
+      return res.render('auth/unauthorized', { message: 'Oops, kamu belum login atau sesi login kamu sudah habis' });
+    }
+
+    res.locals.user = user;
+
+   
     next();
   } catch (error) {
     console.error(error);
@@ -128,10 +138,9 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Rute untuk menampilkan halaman utama
 router.get('/', async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.userId });
+   const user = req.userId
     const fotos = await Foto.find().populate('userid', 'username');
     res.render('main', { user, fotos });
   } catch (error) {
@@ -142,34 +151,31 @@ router.get('/', async (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
   try {
-    // Mendapatkan informasi foto dari basis data
     const foto = await Foto.findById(req.params.id).populate('userid', 'username');
   
-    // Mendapatkan daftar komentar terkait foto dari basis data
     const komentar = await Komentar.find({ fotoid: req.params.id }).populate('userid', 'username').sort({ tanggalkomentar: -1 });
-    
-    // Mengecek apakah pengguna yang sedang login adalah pemilik foto atau pemilik komentar
+  
     komentar.forEach(comment => {
-      comment.isOwner = false; // Default value
+      comment.isOwner = false; 
       if (req.userId && comment.userid._id.toString() === req.userId) {
         comment.isOwner = true;
       }
     });
     
-    // Mendapatkan daftar pengguna yang menyukai foto
+   
     const likefoto = await LikeFoto.find({ fotoid: req.params.id });
     
-    // Mendapatkan tanggal unggah foto
+    
     const uploadDate = foto.tanggalunggah;
     
-    // Mengecek apakah pengguna yang sedang login adalah pemilik foto
+    
     let isOwner = false;
     if (req.userId && foto.userid._id.toString() === req.userId) {
       isOwner = true;
     }
     
-    // Mengirimkan data ke template post.ejs
-    res.render('post', { foto, uploadDate, komentar, likefoto, isOwner, currentUser: req.userId });
+  
+    res.render('post', { foto, uploadDate, komentar, likefoto, isOwner, currentUser: req.userId});
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -331,7 +337,7 @@ router.post('/profile/photo/upload', upload.single('lokasifile'), async (req, re
 
 router.get('/logout', (req, res) => {
   res.clearCookie('token');
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 router.get('/profile/like', async (req, res) => {
@@ -397,28 +403,33 @@ router.delete('/delete-comment/:id', async (req, res) => {
     const userId = req.userId;
     const komentarId = req.params.id;
 
-    // Cari komentar berdasarkan ID
+    
     const komentar = await Komentar.findById(komentarId);
 
-    // Pastikan komentar ditemukan
+
     if (!komentar) {
       return res.status(404).json({ error: 'Komentar tidak ditemukan' });
     }
 
-    // Pastikan pengguna yang sedang login adalah pemilik komentar
+    
     if (!komentar.userid.equals(userId)) {
       return res.status(403).json({ error: 'Anda tidak memiliki izin untuk menghapus komentar ini' });
     }
 
-    // Hapus komentar jika pengguna adalah pemiliknya
-    await komentar.remove();
+    
+    const fotoId = komentar.fotoid;
 
-    res.json({ message: 'Komentar berhasil dihapus' });
+ 
+    await komentar.deleteOne();
+
+
+    res.redirect(`/post/${fotoId}`);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 
 module.exports = router;

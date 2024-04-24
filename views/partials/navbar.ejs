@@ -1,17 +1,24 @@
 <nav class="bg-white py-4 flex justify-between items-center px-10 fixed w-full z-10 shadow-md">
     <p class="text-md font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">Sparkle</p>
-        <div class="md:flex md:items-center md:justify-between w-full md:w-auto border border-black rounded-sm">
-            <form action="/search" role="search" method="POST"
-                class="relative flex items-center w-full md:w-96 gap-2">
-                <?xml version="1.0" encoding="UTF-8"?><svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" class="absolute pl-2"><path d="M17 17L21 21" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <input type="search" aria-label="Search" id="searchInput" name="searchTerm"
-                    placeholder="Search the site"
-                    class="px-4 py-1  w-full text-sm md:text-base lg:text-lg focus:outline-none pl-10 border-gray-500 rounded-sm">
-            </form>
-        </div>
-    <div class="flex gap-5">
-      <a href="/" class="hover:text-green-500 transition duration-500">Dashboard</a>
-      <a href="/profile" class="hover:text-green-500 transition duration-500">Profile</a>
-      <a href="/logout" class="hover:text-red-500 transition duration-500">Logout</a>
+    <div class="md:flex md:items-center md:justify-between w-full md:w-auto border border-black rounded-sm">
+        <form action="/search" role="search" method="POST" class="relative flex items-center w-full md:w-96 gap-2">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000" class="absolute pl-2">
+                <path d="M17 17L21 21" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <input type="search" aria-label="Search" id="searchInput" name="searchTerm" placeholder="Search the site" class="px-4 py-1  w-full text-sm md:text-base lg:text-lg focus:outline-none pl-10 border-gray-500 rounded-sm">
+        </form>
     </div>
-</nav> 
+    <div class="flex gap-5">
+        <% if (!user) { %>
+            <a href="/" class="hover:text-green-500 transition duration-500">Dashboard</a>
+            <a href="/profile" class="hover:text-green-500 transition duration-500">Profile</a>
+            <a href="/login" class="hover:text-green-500 transition duration-500">Login</a>
+            <a href="/register" class="hover:text-green-500 transition duration-500">Signup</a>
+        <% } else { %>
+            <a href="/" class="hover:text-green-500 transition duration-500">Dashboard</a>
+            <a href="/profile" class="hover:text-green-500 transition duration-500">Profile</a>
+            <a href="/logout" class="hover:text-red-500 transition duration-500">Logout</a>
+        <% } %>
+    </div>
+</nav>

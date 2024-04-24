@@ -28,9 +28,14 @@
             
                 <div>
                     <label for="lokasifile" class="block text-sm font-medium text-gray-600 mb-2">Upload Foto</label>
-                    <input type="file" name="lokasifile" id="lokasifile" class="mt-1 p-2 w-full border rounded-md focus:outline-none focus:border-blue-500" required>
+                    <div class="mt-1">
+                        <% if (foto.lokasifile) { %>
+                          <p class="hidden">Foto sebelumnya: <a href="/uploads/<%= foto.lokasifile %>" target="_blank" ><%= foto.lokasifile %></a></p>
+                        <% } %>
+                        <input type="file" name="lokasifile" id="lokasifile" class="p-2 w-full border rounded-md focus:outline-none focus:border-blue-500" <% if (!foto.lokasifile) { %>required<% } %>>
+                      </div>
                     <% if (foto.lokasifile) { %>
-                        <p class="text-sm text-gray-500">Foto saat ini: </p>
+                        <p class="text-sm text-gray-500">Foto sebelumnya: </p>
                         <img src="/uploads/<%= foto.lokasifile %>" alt="Foto saat ini" class="mt-2 w-full">
                     <% } else { %>
                         <p class="text-sm text-gray-500">Belum ada file terunggah.</p>
